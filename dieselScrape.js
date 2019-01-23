@@ -4,9 +4,10 @@ const $ = require('cheerio')
 const url = 'http://diesel.elcat.kg/index.php?showforum=243&prune_day=1&sort_by=Z-A&sort_key=last_post&topicfilter=all&page=';
 
 async function scrape(){
+  var promises = []
   var urls = []
   for(var i=1;i<=6;i++){
-    await request(url+i).then((html)=>{
+    var promise = request(url+i).then((html)=>{
       var domObj = $('.topic_title',html);
       for(let j=0;j<40;j++){
         urls.push({
@@ -18,7 +19,10 @@ async function scrape(){
         }
       }
     })
+    promises.push(promise)
   }
+  const results = await Promise.all(promises.map(p=>p.catch(e=>e)))
+  const validResults = results.filter(result=>!(result instanceof Error))
   console.log(urls.length);
   return populate(filterByKeywords(urls));
 }
