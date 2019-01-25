@@ -4,7 +4,7 @@ var scrape = require('./dieselScrape')
 
 app.set('view engine', 'pug');
 app.use(express.static('public'))
-app.listen(3000,()=>{
+app.listen(3001,()=>{
   console.log('its up!')
 })
 

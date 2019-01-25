@@ -21,7 +21,11 @@ async function scrape(){
     })
     promises.push(promise)
   }
-  const results = await Promise.all(promises.map(p=>p.catch(e=>e)))
+  const results = await Promise.all(promises.map(p=>p.catch(e=>e))).catch((err)=>{
+    console.log(err);
+    scrape();
+    return;
+  })
   const validResults = results.filter(result=>!(result instanceof Error))
   console.log(urls.length);
   return populate(filterByKeywords(urls));
@@ -46,6 +50,7 @@ async function populate(urls){
   //   })
   //   return url
   // })
+  
   for(var i=0;i<urls.length;i++){
     await request(urls[i].href).then((html)=>{
       var domObj = $('.entry-content:first-of-type', html)
