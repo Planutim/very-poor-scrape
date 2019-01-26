@@ -2,24 +2,17 @@ head
   meta(charset='utf-8')
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css')
-  style.
-    a:visited {
-      background-color: cyan;
-    }
+  link(rel='stylesheet' href='diesel.css')
 
-    a:hover {
-      background-color: lightgreen;
-    }
-
-    a:active {
-      background-color: hotpink;
-    }
 
 body
+
+  a#hhlink.btn.btn-info.center-block(href=`diesel`) Go here
   if urls
     ul.list-group
     each url in urls
       li.list-group-item
         a(href=`${url.href}` target='_blank')= url.title
       li.list-group-item
-        p= url.html
+        if url.html
+          p= url.html

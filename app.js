@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express()
-var scrape = require('./dieselScrape')
-
+var dieselScrape = require('./dieselScrape')
+var hhScrape = require('./hhScrape')
 app.set('view engine', 'pug');
 app.use(express.static('public'))
 app.listen(3001,()=>{
@@ -9,9 +9,13 @@ app.listen(3001,()=>{
 })
 
 
-app.get('/', async (req,res)=>{
-    var urls = await scrape()
-    res.render('diesel',{urls})
+app.get('/diesel', async (req,res)=>{
+    var urls = await dieselScrape()
+    res.render('diesel',{urls, })
     
 })
 
+app.get('/', async(req,res)=>{
+  var urls = await hhScrape()
+  res.render('diesel', {urls, main:true })
+})

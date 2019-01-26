@@ -3,7 +3,7 @@ const $ = require('cheerio')
 
 const url = 'http://diesel.elcat.kg/index.php?showforum=243&prune_day=1&sort_by=Z-A&sort_key=last_post&topicfilter=all&page=';
 
-async function scrape(){
+async function dieselScrape(){
   var promises = []
   var urls = []
   for(var i=1;i<=6;i++){
@@ -61,4 +61,4 @@ async function populate(urls){
   return urls;
 }
 
-module.exports = scrape;
+module.exports = dieselScrape;
